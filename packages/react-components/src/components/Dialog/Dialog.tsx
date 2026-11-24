@@ -46,7 +46,7 @@ export default function Dialog({
                 </Button>
               </span>
             )}
-            <>{children}</>
+            {typeof children === "function" ? children({ close }) : children}
           </div>
         </>
       )}

@@ -6,6 +6,23 @@ import Dialog, { DialogTrigger } from "./Dialog";
 import Modal from "../Modal";
 
 describe("Dialog", () => {
+  it("renders a custom action that can close the dialog", () => {
+    render(
+      <DialogTrigger>
+        <Button>Open</Button>
+        <Modal>
+          <Dialog isCloseable={false}>
+            {({ close }) => <Button onPress={close}>Done</Button>}
+          </Dialog>
+        </Modal>
+      </DialogTrigger>
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: "Open" }));
+    fireEvent.click(screen.getByRole("button", { name: "Done" }));
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
   it("text within Dialog is not initially visible", () => {
     render(
       <DialogTrigger>

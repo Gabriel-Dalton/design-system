@@ -7,6 +7,23 @@ import { DialogTrigger } from "../Dialog";
 import Modal from "../Modal";
 
 describe("AlertDialog", () => {
+  it("renders a custom action that can close the dialog", () => {
+    render(
+      <DialogTrigger>
+        <Button>Open</Button>
+        <Modal>
+          <AlertDialog isCloseable={false}>
+            {({ close }) => <Button onPress={close}>Done</Button>}
+          </AlertDialog>
+        </Modal>
+      </DialogTrigger>
+    );
+
+    fireEvent.click(screen.getByRole("button", { name: "Open" }));
+    fireEvent.click(screen.getByRole("button", { name: "Done" }));
+    expect(screen.queryByRole("dialog")).not.toBeInTheDocument();
+  });
+
   it("text within AlertDialog is not initially visible", () => {
     render(
       <DialogTrigger>

@@ -96,7 +96,7 @@ export default function AlertDialog({
               className="bcds-react-aria-AlertDialog--children"
               slot="children"
             >
-              <>{children}</>
+              {typeof children === "function" ? children({ close }) : children}
             </div>
           )}
           {buttons && (
